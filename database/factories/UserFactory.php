@@ -16,7 +16,6 @@ class UserFactory extends Factory
     /**
      * The current password being used by the factory.
      */
-    protected static ?string $password = '1234';
     protected $model = User::class;
     
     /**
@@ -30,7 +29,7 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'), // password
+            'password' => Hash::make('1234'), // password
             'remember_token' => Str::random(10),
         ];
     }
@@ -46,7 +45,7 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
-    
+
     public function no_remember(): static
     {
         return $this->state(fn (array $attributes) => [
