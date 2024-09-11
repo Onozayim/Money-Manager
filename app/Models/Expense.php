@@ -12,6 +12,9 @@ class Expense extends Model
     protected $fillable = [
         'quantity',
         'user_id',
-        'sub_category_id'
+        'sub_category_id',
+        'description',
+        'category_id',
+        'period'
     ];
 }
