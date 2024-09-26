@@ -33,6 +33,7 @@ Route::middleware(['api'])->group(function () {
 
         Route::prefix('predict')->group(function() {
             Route::get('sub_category', [PredictController::class, 'predictSubcategory']);
+            Route::get('expense', [PredictController::class, 'predictExpense']);
         });
 
         Route::prefix('expense')->group(function() {

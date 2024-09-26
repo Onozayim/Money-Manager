@@ -20,14 +20,16 @@ class ExpenseFactory extends Factory
     public function definition(): array
     {
         $subCat = SubCategory::inRandomOrder()->first();
+        $month = rand(1, 12);
         return [
             //inRandomOrder
             'user_id' => User::inRandomOrder()->first()->id,
             'description' => fake()->name(),
             'sub_category_id' => $subCat->id,
-            'quantity' => rand(50, 100000),
+            'quantity' => rand(50, 1000),
             'category_id' => $subCat->category_id,
-            'period' => Carbon::now()->year . '-' . Carbon::now()->month
+            'period' => Carbon::now()->year . '-' . $month,
+            'month' => $month
         ];
     }
 }

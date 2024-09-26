@@ -6,6 +6,7 @@ use App\Http\Requests\PredictSubcategoryRequest;
 use App\Models\Expense;
 use App\Models\SubCategory;
 use App\Traits\Utils;
+use Illuminate\Support\Facades\Log;
 
 class PredictController extends Controller
 {
@@ -98,5 +99,43 @@ class PredictController extends Controller
         }
 
         return $this->returnDataJson(SubCategory::find($subCat->sub_category_id));
+    }
+
+    public function predictExpense()
+    {
+        $expenses = Expense::orderBy('id', 'desc')->latest()->take(100)->get();
+        $expenses = $expenses->reverse();
+
+        if (count($expenses) == 0) $this->returnDataJson(['value' => 100]);
+
+        $n = 0;
+        $sumX = 0;
+        $sumY = 0;
+        $sumXY = 0;
+        $sumX2 = 0;
+
+        foreach ($expenses as $ex) {
+            $x = $ex->id;
+            $y = $ex->quantity;
+
+            $n++;
+            $sumX += $x;
+            $sumY += $y;
+            $sumXY += $x * $y;
+            $sumX2 += $x * $x;
+        }
+
+        $mediaY = $sumY / $n;
+        $mediaX = $sumX / $n;
+
+
+        // Calcular pendiente
+        $m = (($sumXY) - (($sumX * $sumY) / $n)) / ($sumX2 - (($sumX * $sumX) / $n));
+        // Calcular interseccion
+        $b = ($mediaY - ($m * $mediaX));
+
+        $prediccion = ($m * ($n + 1)) + $b;
+        //Video de donde se obtuvo la formula https://www.youtube.com/watch?v=vP7Kvws9yFc        
+        return $this->returnDataJson(['value' => round($prediccion, 2 )]);
     }
 }

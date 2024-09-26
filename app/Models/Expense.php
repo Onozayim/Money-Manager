@@ -15,6 +15,7 @@ class Expense extends Model
         'sub_category_id',
         'description',
         'category_id',
-        'period'
+        'period',
+        'month'
     ];
 }
