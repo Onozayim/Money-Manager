@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsesorController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\PredictController;
@@ -43,6 +44,10 @@ Route::middleware(['api'])->group(function () {
 
         Route::prefix('user')->group(function() {
             Route::post('save_amount', [UserController::class, 'saveAmount']);
+        });
+
+        Route::prefix('asesor')->group(function() {
+            Route::post('distribution', [AsesorController::class, 'distribution']);
         });
     });
 });
