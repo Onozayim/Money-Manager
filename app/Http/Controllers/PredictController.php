@@ -23,44 +23,31 @@ class PredictController extends Controller
         $min = null;
         $max = null;
 
-        if ($quantity > 0 && $quantity <= 100) {
-            $min = 0.01;
-            $max = 100;
-        } else if ($quantity > 100 && $quantity <= 250) {
-            $min = 100.01;
-            $max = 250;
-        } else if ($quantity > 250 && $quantity <= 500) {
-            $min = 250.01;
-            $max = 500;
-        } else if ($quantity > 50 && $quantity <= 1000) {
-            $min = 500.01;
-            $max = 1000;
-        } else if ($quantity > 1000 && $quantity <= 2500) {
-            $min = 1000.01;
-            $max = 2500;
-        } else if ($quantity > 2500 && $quantity <= 5000) {
-            $min = 2500.01;
-            $max = 5000;
-        } else if ($quantity > 5000 && $quantity <= 7500) {
-            $min = 5000.01;
-            $max = 7500;
-        } else if ($quantity > 7500 && $quantity <= 10000) {
-            $min = 7500.01;
-            $max = 10000;
-        } else if ($quantity > 10000 && $quantity <= 25000) {
-            $min = 10000.01;
-            $max = 25000;
-        } else if ($quantity > 25000 && $quantity <= 50000) {
-            $min = 25000.01;
-            $max = 50000;
-        } else if ($quantity > 50000 && $quantity <= 75000) {
-            $min = 50000.01;
-            $max = 75000;
-        } else if ($quantity > 75000 && $quantity <= 100000) {
-            $min = 75000.01;
-            $max = 100000;
-        } else
-            $min = 100000.01;
+        $quantity_ranges = [
+            [0.01, 100],
+            [100.01, 250],
+            [250.01, 500],
+            [500.01, 1000],
+            [1000.01, 2500],
+            [2500.01, 5000],
+            [5000.01, 7500],
+            [7500.01, 10000],
+            [10000.01, 25000],
+            [25000.01, 50000],
+            [50000.01, 75000],
+            [75000.01, 100000]
+        ];
+        
+        $min = 100000.01; // Valor por defecto si no se cumple ningún rango
+        
+        foreach ($quantity_ranges as $range) {
+            if ($quantity > $range[0] && $quantity <= $range[1]) {
+                $min = $range[0];
+                $max = $range[1];
+                break;
+            }
+        }
+        
 
         if ($min && $max) {
             $data = Expense::groupBy('category_id')
