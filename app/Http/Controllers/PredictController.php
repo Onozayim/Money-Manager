@@ -69,7 +69,7 @@ class PredictController extends Controller
                 ->whereBetween('quantity', [$min, $max])
                 ->first();
 
-            if (!$data) $this->returnDataJson(SubCategory::first());
+            if (!$data) return $this->returnDataJson(SubCategory::first());
 
             $subCat = Expense::groupBy('sub_category_id')
                 ->selectRaw('count(*) as total, sub_category_id')
@@ -78,7 +78,7 @@ class PredictController extends Controller
                 ->whereBetween('quantity', [$min, $max])
                 ->first();
 
-            if (!$subCat) $this->returnDataJson(SubCategory::first());
+            if (!$subCat) return $this->returnDataJson(SubCategory::first());
         } else {
             $data = Expense::groupBy('category_id')
                 ->selectRaw('count(*) as total, category_id')
@@ -86,7 +86,7 @@ class PredictController extends Controller
                 ->where('quantity', '>', $min)
                 ->first();
 
-            if (!$data) $this->returnDataJson(SubCategory::first());
+            if (!$data) return $this->returnDataJson(SubCategory::first());
 
             $subCat = Expense::groupBy('sub_category_id')
                 ->selectRaw('count(*) as total, sub_category_id')
@@ -95,7 +95,7 @@ class PredictController extends Controller
                 ->where('quantity', '>', $min)
                 ->first();
 
-            if (!$subCat) $this->returnDataJson(SubCategory::first());
+            if (!$subCat) return $this->returnDataJson(SubCategory::first());
         }
 
         return $this->returnDataJson(SubCategory::find($subCat->sub_category_id));
