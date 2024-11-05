@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Percentages;
 use App\Traits\Utils;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -14,7 +15,34 @@ class AsesorController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api');
+        // $this->middleware('auth:api');
+    }
+
+    public function percentages() {
+
+        $bgc = ['#4e73df', '#1cc88a', '#36b9cc', '#df4e4e'];
+        $hbgc = ['#2e59d9', '#17a673', '#2c9faf', '#d92e2e'];
+        $percentages = Percentages::with('category')->where('user_id', auth()->id())->get();
+
+        $new_categories = [];
+        $new_percentages = [];
+        $new_bgc = [];
+        $new_hbgc = [];
+
+        foreach ($percentages as $percentage) {
+            $new_categories[] = $percentage->category->name;
+            $new_percentages[] = $percentage->percentage;
+            $new_bgc[] = $bgc[$percentage->category_id - 1];
+            $new_hbgc[] = $hbgc[$percentage->category_id - 1];
+        }
+
+
+        return $this->returnDataJson([
+            'categories' => $new_categories,
+            'percentages' => $new_percentages,
+            'bgc' => $new_bgc,
+            'hbgc' => $new_hbgc
+        ]);
     }
 
     public function distribution(Request $request)

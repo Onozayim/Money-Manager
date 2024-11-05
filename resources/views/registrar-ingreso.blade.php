@@ -1,0 +1,39 @@
+@extends('layout')
+@section('content')
+<!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Registro de Ingresos</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generar reporte</a>
+                        </div>
+                    <div>
+                        <form method="POST" action="/save-ingreso">
+                            @csrf
+                            {{-- <div class="form-group">
+                                <label for="concepto">Concepto</label>
+                                <input type="text" class="form-control" id="concepto" placeholder="Ingrese el concepto"
+                                    required>
+                            </div> --}}
+
+                            <div class="form-group">
+                                <label for="monto">Monto</label>
+                                <input type="number" class="form-control" id="monto" name="monto" placeholder="Ingrese el monto"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="descripcion">Descripción</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3"
+                                    placeholder="Ingrese una descripción"></textarea>
+                            </div>
+
+                            {{-- <div class="form-group">
+                                <label for="fecha">Fecha</label>
+                                <input type="date" class="form-control" id="fecha" required>
+                            </div> --}}
+                            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                        </form>
+                    </div>
+                    <br>
+                    <br>
+    @endsection

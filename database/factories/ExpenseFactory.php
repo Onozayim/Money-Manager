@@ -21,6 +21,7 @@ class ExpenseFactory extends Factory
     {
         $subCat = SubCategory::inRandomOrder()->first();
         $month = rand(1, 12);
+        $year = intval(Carbon::now()->year) - 1;
         return [
             //inRandomOrder
             'user_id' => User::inRandomOrder()->first()->id,
@@ -28,7 +29,8 @@ class ExpenseFactory extends Factory
             'sub_category_id' => $subCat->id,
             'quantity' => rand(50, 1000),
             'category_id' => $subCat->category_id,
-            'period' => Carbon::now()->year . '-' . $month,
+            'period' => $year . '-' . $month,
+            'year' => $year,
             'month' => $month
         ];
     }

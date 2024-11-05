@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['api'])->group(function () {
+// Route::middleware(['api'])->group(function () {
     Route::prefix('v1')->group(function () {
         Route::prefix('auth')->group(function () {
             Route::post('login', [AuthController::class, 'login']);
@@ -32,10 +32,10 @@ Route::middleware(['api'])->group(function () {
             Route::post('me', [AuthController::class, 'me']);
         });
 
-        Route::prefix('predict')->group(function() {
-            Route::get('sub_category', [PredictController::class, 'predictSubcategory']);
-            Route::get('expense', [PredictController::class, 'predictExpense']);
-        });
+        // Route::prefix('predict')->group(function() {
+        //     Route::get('sub_category', [PredictController::class, 'predictSubcategory']);
+        //     Route::get('expense', [PredictController::class, 'predictExpense']);
+        // });
 
         Route::prefix('expense')->group(function() {
             Route::post('save', [ExpenseController::class, 'save']);
@@ -50,4 +50,4 @@ Route::middleware(['api'])->group(function () {
             Route::post('distribution', [AsesorController::class, 'distribution']);
         });
     });
-});
+// });

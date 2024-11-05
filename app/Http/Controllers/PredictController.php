@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PredictSubcategoryRequest;
 use App\Models\Expense;
+use App\Models\Linear;
 use App\Models\SubCategory;
 use App\Traits\Utils;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class PredictController extends Controller
@@ -14,7 +16,7 @@ class PredictController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api');
+        // $this->middleware('auth:api');
     }
 
     public function predictSubcategory(PredictSubcategoryRequest $request)
@@ -37,9 +39,9 @@ class PredictController extends Controller
             [50000.01, 75000],
             [75000.01, 100000]
         ];
-        
+
         $min = 100000.01; // Valor por defecto si no se cumple ningún rango
-        
+
         foreach ($quantity_ranges as $range) {
             if ($quantity > $range[0] && $quantity <= $range[1]) {
                 $min = $range[0];
@@ -47,7 +49,7 @@ class PredictController extends Controller
                 break;
             }
         }
-        
+
 
         if ($min && $max) {
             $data = Expense::groupBy('category_id')
@@ -90,8 +92,12 @@ class PredictController extends Controller
 
     public function predictExpense()
     {
-        $expenses = Expense::orderBy('id', 'desc')->latest()->take(100)->get();
-        $expenses = $expenses->reverse();
+        $expenses = Expense::selectRaw('month, sum(quantity) as quantity')
+            ->orderBy('month', 'ASC')
+            ->where('user_id', auth()->id())->where('year', Carbon::now()->year - 1)
+            ->groupBy('month')->get();
+        // return $this->returnDataJson($expenses);
+        // $expenses = $expenses->reverse();
 
         if (count($expenses) == 0) $this->returnDataJson(['value' => 100]);
 
@@ -102,7 +108,7 @@ class PredictController extends Controller
         $sumX2 = 0;
 
         foreach ($expenses as $ex) {
-            $x = $ex->id;
+            $x = $ex->month;
             $y = $ex->quantity;
 
             $n++;
@@ -118,11 +124,51 @@ class PredictController extends Controller
 
         // Calcular pendiente
         $m = (($sumXY) - (($sumX * $sumY) / $n)) / ($sumX2 - (($sumX * $sumX) / $n));
+
+        // return $this->returnDataJson($m);
         // Calcular interseccion
         $b = ($mediaY - ($m * $mediaX));
 
+        $linear = Linear::where('user_id', auth()->id())->first();
+
+        if (!$linear) $linear = new Linear();
+
+        $linear->pendiente = $m;
+        $linear->interseccion = $b;
+        $linear->num = $n;
+        $linear->user_id = auth()->id();
+        $linear->save();
+
+
+        // return $this->returnDataJson(['m' => $m, 'b' => $b, 'n' => $n]);
+
         $prediccion = ($m * ($n + 1)) + $b;
         //Video de donde se obtuvo la formula https://www.youtube.com/watch?v=vP7Kvws9yFc        
-        return $this->returnDataJson(['value' => round($prediccion, 2 )]);
+        return $this->returnDataJson(['value' => round($prediccion, 2)]);
+    }
+
+    public function predictYearExpenses()
+    {
+        $linear = Linear::where('user_id', auth()->id())->first();
+        $n = $linear->num;
+        $b = $linear->interseccion;
+        $m = $linear->pendiente;
+
+        $new_months = [];
+        $new_amounts = [];
+
+        $months = ["Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov"];
+
+        for ($i = 1; $i <= 12; $i++) {
+            $prediccion = ($m * ($n + $i)) + $b;
+            
+            $new_months[] = $months[($n + $i) % 12];
+            $new_amounts[] = $prediccion;
+        }
+
+        return $this->returnDataJson([
+            'months' => $new_months,
+            'amounts' => $new_amounts 
+        ]);
     }
 }

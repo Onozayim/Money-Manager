@@ -14,6 +14,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //
-        User::factory(10)->unverified()->no_remember()->create();
+        User::factory(1)->unverified()->no_remember()->create();
     }
 }

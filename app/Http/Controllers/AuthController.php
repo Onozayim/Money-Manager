@@ -24,7 +24,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'autoLogin']]);
     }
 
     /**
@@ -32,6 +32,7 @@ class AuthController extends Controller
      *
      * @return JsonResponse
      */
+
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
@@ -40,6 +41,14 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
 
         return $this->respondWithToken($token);
+    }
+
+    public function autoLogin() {
+        auth()->attempt([
+            'email' => 'user@gmail.com',
+            'password' => '1234'
+        ]);
+        return response()->json(['status' => 'ok'], 200);
     }
 
     public function register(RegisterRequest $request)
