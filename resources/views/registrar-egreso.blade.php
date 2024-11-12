@@ -15,7 +15,7 @@
 
             <div class="form-group">
                 <label for="monto">Monto</label>
-                <input type="number" class="form-control" step="any" id="monto" name="monto" placeholder="Ingrese el monto" required>
+                <input type="number" class="form-control" step="any" id="monto" name="monto" placeholder="Ingrese el monto (Máximo: 999999.99)" required>
             </div>
 
             <div class="form-group">

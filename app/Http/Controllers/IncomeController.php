@@ -35,18 +35,18 @@ class IncomeController extends Controller
                 'description' => $request->descripcion,
             ]);
 
-        return redirect('/historico-ingreso');
+        return redirect('/historico-ingreso')->with('status', 'Ingreso guardado!');;
     }
 
     public function edit_ingreso($id) {
         $income = Income::where('id', $id)->first();
 
-        return view('editar-ingreso', compact('income'));
+        return view('editar-ingreso', compact('income'))->with('status', 'Ingreso guardado!');;
     }
 
     public function delete_ingreso($id) {
         Income::where('id', $id)->delete();
-        return redirect('/historico-ingreso');
+        return redirect('/historico-ingreso')->with('status', 'Ingreso Eliminado!');;
     }
 
     public function save_ingreso(Request $request) {
@@ -62,6 +62,6 @@ class IncomeController extends Controller
             'year' => Carbon::now()->year
         ]);
 
-        return redirect('/registrar-ingreso');
+        return redirect('/registrar-ingreso')->with('status', 'Ingreso guardado!');;
     }
 }

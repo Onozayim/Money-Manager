@@ -36,7 +36,7 @@ class ExpenseController extends Controller
                 'category_id' => $request->categoria,
             ]);
 
-        return redirect('/historico-egreso');
+        return redirect('/historico-egreso')->with('status', 'Egreso guardado!');;
     }
 
     public function edit_egreso($id) {
@@ -47,7 +47,7 @@ class ExpenseController extends Controller
 
     public function delete_egreso($id) {
         Expense::where('id', $id)->delete();
-        return redirect('/historico-egreso');
+        return redirect('/historico-egreso')->with('status', 'Egreso eliminado!');;
     }
 
     public function expense_sub_categories(Request $request) {
@@ -73,7 +73,7 @@ class ExpenseController extends Controller
             'year' => Carbon::now()->year
         ]);
 
-        return redirect('/registrar-egreso');
+        return redirect('/registrar-egreso')->with('status', 'Egreso guardado!');
     }
 
     public function history()

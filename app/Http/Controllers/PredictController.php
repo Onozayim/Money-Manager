@@ -144,7 +144,7 @@ class PredictController extends Controller
 
         $prediccion = ($m * ($n + 1)) + $b;
         //Video de donde se obtuvo la formula https://www.youtube.com/watch?v=vP7Kvws9yFc        
-        return $this->returnDataJson(['value' => round($prediccion, 2)]);
+        return redirect('dashboard');
     }
 
     public function predictYearExpenses()

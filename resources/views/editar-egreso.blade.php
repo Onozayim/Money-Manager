@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label for="monto">Monto</label>
                 <input type="number" value="{{ $expense->quantity }}" step="any" class="form-control" id="monto" name="monto"
-                    placeholder="Ingrese el monto" required>
+                    placeholder="Ingrese el monto (Máximo: 999999.99)" required>
             </div>
 
             <div class="form-group">

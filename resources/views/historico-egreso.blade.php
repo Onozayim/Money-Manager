@@ -47,7 +47,7 @@
                                 <td>{{ $expense->category->name }}</td>
                                 <td>{{ $expense->sub_category->name }}</td>
                                 <td>{{ $expense->created_at }}</td>
-                                <td>{{ $expense->quantity }}</td>
+                                <td>{{ number_format((float)$expense->quantity, 2, '.', ',') }}</td>
                                 <td class="text-center">
                                     <a class="btn btn-danger mb-3" href="/delete-egreso/{{ $expense->id }}">
                                         <i class="fa fa-trash" role="button"></i>

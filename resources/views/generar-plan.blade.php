@@ -2,12 +2,10 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Registro de Ingresos</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generar reporte</a>
+        <h1 class="h3 mb-0 text-gray-800">Generar plan financiero</h1>
     </div>
     <div>
-        <form method="POST" action="/update-ingreso">
+        <form method="POST" action="/save-plan">
             @csrf
             {{-- <div class="form-group">
                                 <label for="concepto">Concepto</label>
@@ -15,18 +13,30 @@
                                     required>
                             </div> --}}
 
-            <input type="hidden" value="{{ $income->id }}" name="id">
-
             <div class="form-group">
                 <label for="monto">Monto</label>
-                <input type="number" value="{{ $income->quantity }}" class="form-control" id="monto" name="monto"
-                    placeholder="Ingrese el monto (Máximo: 999999.99)" required>
+                <input type="number" class="form-control" id="monto" name="monto" placeholder="Ingrese el monto (Máximo: 999999.99) "
+                    required>
             </div>
 
             <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3"
-                    placeholder="Ingrese una descripción">{{ $income->description }}</textarea>
+                <input type="checkbox" name="necesidades" id="">
+                <label for="descripcion">Necesidades</label>
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" name="deseos" id="">
+                <label for="descripcion">Deseos</label>
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" name="ahorros" id="">
+                <label for="descripcion">Ahorros</label>
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" name="inversiones" id="">
+                <label for="descripcion">Inversiones</label>
             </div>
 
             {{-- <div class="form-group">
