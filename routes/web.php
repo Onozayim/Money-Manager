@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware([AutoLogin::class])->group(function () {
     Route::get('/', function () {
-        return view('welcome');
+        return view('landing');
     });
 
     Route::get('/generar-plan', [AsesorController::class, 'index']);
@@ -66,4 +66,14 @@ Route::middleware([AutoLogin::class])->group(function () {
     Route::get('delete-ingreso/{id}', [IncomeController::class, 'delete_ingreso']);
     Route::get('edit-ingreso/{id}', [IncomeController::class, 'edit_ingreso']);
     Route::post('update-ingreso', [IncomeController::class, 'update_ingreso']);
+
+    Route::view('curso1', 'curso1');
+    Route::view('curso2', 'curso2');
+    Route::view('curso3', 'curso3');
+    Route::view('curso4', 'curso4');
+    Route::view('curso5', 'curso5');
+    Route::view('calculadora-impuestos', 'calculadora-impuestos');
+    Route::view('calculadora-inversiones', 'calculadora-inversiones');
+    Route::view('isrsrc', 'isrsrc');
+    Route::view('impuestossrc', 'impuestossrc');
 });
