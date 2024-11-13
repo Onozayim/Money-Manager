@@ -83,7 +83,7 @@ class AsesorController extends Controller
         }
         */
 
-        $cantidad = $request->cantidad;
+        $cantidad = $request->monto;
 
         // Determinar el rango
         $rango = $this->determineRange($cantidad);
