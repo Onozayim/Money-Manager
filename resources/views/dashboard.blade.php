@@ -142,7 +142,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h5 class="m-0 font-weight-bold text-primary">Categoría de gastos</h5>
+                    <h5 class="m-0 font-weight-bold text-primary">Plan de gastos</h5>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -190,7 +190,7 @@
     </div>
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Histórico de egresos</h1>
+    <h1 class="h3 mb-2 text-gray-800">Histórico de Gastos</h1>
     <p class="mb-4"></p>
 
     <!-- Gastos Example -->

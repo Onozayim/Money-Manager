@@ -140,7 +140,7 @@
                     <p class="d-inline-block border rounded-pill py-1 px-4">Sobre nosotros</p>
                     <h1 class="mb-4">¿Por qué deberías probar FinanzEdu?</h1>
                     <p>En FinanzEdu, creemos que la educación financiera es clave para el éxito. Nos dedicamos a
-                        empoderarte con herramientas para monitorear tus ingresos y egresos, mientras aprendes a tomar
+                        empoderarte con herramientas para monitorear tus ingresos y gastos, mientras aprendes a tomar
                         decisiones informadas sobre tu dinero. </p>
                     <p class="mb-4">Únete a nosotros y comienza a construir un futuro financiero más sólido hoy.</p>
                     <p><i class="far fa-check-circle text-primary me-3"></i>Educación financiera de calidad</p>

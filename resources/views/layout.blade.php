@@ -66,7 +66,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/registrar-ingreso">Ingresos</a>
-                        <a class="collapse-item" href="/registrar-egreso">Egresos</a>
+                        <a class="collapse-item" href="/registrar-egreso">Gastos</a>
                     </div>
                 </div>
             </li>
@@ -83,7 +83,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--<h6 class="collapse-header"></h6>-->
                         <a class="collapse-item" href="/historico-ingreso">Ingresos</a>
-                        <a class="collapse-item" href="/historico-egreso">Egresos</a>
+                        <a class="collapse-item" href="/historico-egreso">Gastos</a>
                     </div>
                 </div>
             </li>
