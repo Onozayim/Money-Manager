@@ -45,7 +45,7 @@ class DashboardController extends Controller
         if($ingresos_mensuales == 0) $ingresos_gastados = 0;
         else {
             $ingresos_gastados = ($gastos_mensuales * 100) / $ingresos_mensuales;
-            $ingresos_gastados = 0;
+            if($ingresos_gastados > 100) $ingresos_gastados = 100;
         }
 
         // var_dump($expenses);
