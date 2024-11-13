@@ -175,8 +175,8 @@ class AsesorController extends Controller
                 ],
                 'necesidades-gustos' => [
                     'user_id' => auth()->id(),
-                    'necesidades' => 15,
-                    'gustos' => 85,
+                    'necesidades' => 85,
+                    'gustos' => 15,
                     'ahorros' => 0,
                     'inversiones' => 0,
                 ],

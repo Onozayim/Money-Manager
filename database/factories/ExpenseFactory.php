@@ -27,7 +27,7 @@ class ExpenseFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id,
             'description' => fake()->name(),
             'sub_category_id' => $subCat->id,
-            'quantity' => rand(50, 1000),
+            'quantity' => rand(500, 1000),
             'category_id' => $subCat->category_id,
             'period' => $year . '-' . $month,
             'year' => $year,

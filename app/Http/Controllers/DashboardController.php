@@ -35,10 +35,18 @@ class DashboardController extends Controller
         $ingresos_mensuales = Income::where('user_id', auth()->id())
             ->sum('quantity');
 
-        $objetivo_gasto = ($gastos_mensuales * 100) / auth()->user()->amount;
-        if($objetivo_gasto > 100) $objetivo_gasto = 100;
+        if(auth()->user()->amount == 0)
+            $objetivo_gasto = 0;
+        else {
+            $objetivo_gasto = (($gastos_mensuales * 100) / auth()->user()->amount) ?? 0;
+            if($objetivo_gasto > 100) $objetivo_gasto = 100;
+        }
 
-        $ingresos_gastados = ($gastos_mensuales * 100) / $ingresos_mensuales;
+        if($ingresos_mensuales == 0) $ingresos_gastados = 0;
+        else {
+            $ingresos_gastados = ($gastos_mensuales * 100) / $ingresos_mensuales;
+            $ingresos_gastados = 0;
+        }
 
         // var_dump($expenses);
         return view('dashboard', compact(
